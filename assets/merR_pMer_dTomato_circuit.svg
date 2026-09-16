@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="720" viewBox="0 0 1400 720">
+  <rect width="1400" height="720" fill="white"/>
+  <style>
+    text{font-family:Arial,Helvetica,sans-serif;fill:#111} .t{font-size:36px;font-weight:700}.l{font-size:25px}.s{font-size:21px}.gene{stroke:#222;stroke-width:3}.line{stroke:#222;stroke-width:5}.arr{stroke:#222;stroke-width:4;fill:none;marker-end:url(#a)}
+  </style>
+  <defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#222"/></marker></defs>
+  <text x="70" y="55" class="t">Protein-based transcriptional regulator (MerR/pMer)</text>
+  <line x1="70" y1="150" x2="1330" y2="150" class="line"/>
+  <polygon points="100,105 270,105 315,150 270,195 100,195" fill="#55a85a" class="gene"/><text x="135" y="157" class="l">Pconst</text>
+  <polygon points="330,105 575,105 620,150 575,195 330,195" fill="#3977bb" class="gene"/><text x="425" y="158" class="l" fill="white">merR</text>
+  <text x="650" y="112" class="s">Transcription terminator</text><line x1="735" y1="130" x2="735" y2="178" class="line"/><line x1="705" y1="130" x2="765" y2="130" class="line"/>
+  <polygon points="800,105 960,105 1005,150 960,195 800,195" fill="#55a85a" class="gene"/><text x="850" y="158" class="l">Pmer</text>
+  <polygon points="1020,105 1230,105 1275,150 1230,195 1020,195" fill="#cf3d31" class="gene"/><text x="1080" y="158" class="l" fill="white">dTomato</text>
+  <text x="520" y="245" class="l">Plasmid construct</text>
+  <line x1="700" y1="270" x2="700" y2="690" stroke="#222" stroke-width="3"/>
+  <text x="260" y="320" class="t">No Hg²⁺</text><text x="900" y="320" class="t">With Hg²⁺</text>
+  <line x1="90" y1="500" x2="620" y2="500" class="line"/>
+  <polygon points="130,465 280,465 315,500 280,535 130,535" fill="#3977bb" class="gene"/><text x="185" y="508" class="s">merR</text>
+  <ellipse cx="390" cy="455" rx="70" ry="42" fill="#3977bb" stroke="#222" stroke-width="3"/><text x="360" y="463" class="s" fill="white">MerR</text>
+  <polygon points="340,485 445,485 480,500 445,515 340,515" fill="#55a85a" class="gene"/>
+  <polygon points="485,465 600,465 630,500 600,535 485,535" fill="#cf3d31" class="gene"/><text x="500" y="508" class="s" fill="white">dTomato</text>
+  <text x="445" y="405" class="l">Repression</text><path d="M505 420 L545 460 M545 420 L505 460" stroke="#b82424" stroke-width="8"/>
+  <text x="225" y="625" class="l">No dTomato (no fluorescent signal)</text>
+  <line x1="760" y1="500" x2="1315" y2="500" class="line"/>
+  <polygon points="790,465 940,465 975,500 940,535 790,535" fill="#3977bb" class="gene"/><text x="845" y="508" class="s">merR</text>
+  <ellipse cx="1035" cy="445" rx="70" ry="42" fill="#3977bb" stroke="#222" stroke-width="3"/><text x="1002" y="453" class="s" fill="white">MerR</text>
+  <polygon points="980,485 1085,485 1120,500 1085,515 980,515" fill="#55a85a" class="gene"/>
+  <polygon points="1125,465 1260,465 1295,500 1260,535 1125,535" fill="#cf3d31" class="gene"/><text x="1147" y="508" class="s" fill="white">dTomato</text>
+  <circle cx="950" cy="380" r="12" fill="#f29b38"/><circle cx="985" cy="365" r="12" fill="#f29b38"/><circle cx="1015" cy="390" r="12" fill="#f29b38"/><text x="880" y="350" class="l">Hg²⁺</text><path d="M980 395 C990 410 1005 420 1020 425" class="arr"/>
+  <path d="M1210 445 L1210 380" class="arr"/><text x="1110" y="350" class="l">fluorescent output</text>
+  <text x="930" y="625" class="l">Pmer activation → dTomato fluorescence</text>
+</svg>

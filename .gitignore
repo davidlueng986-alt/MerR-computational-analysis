@@ -1,0 +1,18 @@
+.venv/
+__pycache__/
+*.py[cod]
+.DS_Store
+
+# Generated calculation inputs/outputs
+structures/
+jobs/
+results/
+
+# Large chemistry output files
+*.gbw
+*.hess
+*.densities
+*.property.txt
+*.engrad
+*.opt
+*.trj

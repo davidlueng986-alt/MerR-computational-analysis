@@ -1,0 +1,18 @@
+# Products positive, reactants negative. Screening thermodynamic cycles, not literal protein mechanisms.
+reactions:
+  hgcl2_to_sme3:
+    stoich: {hg_sme3: 1, chloride: 2, hgcl2: -1, methanethiolate: -3}
+    chloride_products: 2
+    description: "HgCl2 + 3 MeS- -> [Hg(SMe)3]- + 2 Cl-"
+  hgcl3_to_sme3:
+    stoich: {hg_sme3: 1, chloride: 3, hgcl3: -1, methanethiolate: -3}
+    chloride_products: 3
+    description: "HgCl3- + 3 MeS- -> [Hg(SMe)3]- + 3 Cl-"
+  hgcl4_to_sme3:
+    stoich: {hg_sme3: 1, chloride: 4, hgcl4: -1, methanethiolate: -3}
+    chloride_products: 4
+    description: "HgCl4^2- + 3 MeS- -> [Hg(SMe)3]- + 4 Cl-"
+  hgoh2_to_sme3:
+    stoich: {hg_sme3: 1, hydroxide: 2, hgoh2: -1, methanethiolate: -3}
+    hydroxide_products: 2
+    description: "Hg(OH)2 + 3 MeS- -> [Hg(SMe)3]- + 2 OH-"

@@ -1,0 +1,10 @@
+# Two-CV template for Hg ligand exchange. Replace atom indices after preparing the actual QM/MM system.
+hg: GROUP ATOMS=__HG__
+cl: GROUP ATOMS=__CL_ATOMS__
+s:  GROUP ATOMS=__S_ATOMS__
+
+cn_cl: COORDINATION GROUPA=__HG__ GROUPB=__CL_ATOMS__ R_0=0.28 NN=6 MM=12
+cn_s:  COORDINATION GROUPA=__HG__ GROUPB=__S_ATOMS__  R_0=0.27 NN=6 MM=12
+
+metad: METAD ARG=cn_cl,cn_s SIGMA=0.15,0.15 HEIGHT=0.5 PACE=500 BIASFACTOR=12 TEMP=298.15 FILE=HILLS
+PRINT STRIDE=50 ARG=cn_cl,cn_s,metad.bias FILE=COLVAR

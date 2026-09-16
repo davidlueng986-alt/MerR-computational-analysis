@@ -1,0 +1,25 @@
+project:
+  name: MerR_Hg_ligand_exchange
+  pdb_id: 5CRL
+  pdb_url_template: "https://files.rcsb.org/download/{pdb_id}.pdb"
+  hg_element: HG
+  donor_resname: CYS
+  donor_atom: SG
+  donor_cutoff_A: 3.2
+
+orca:
+  executable: orca
+  nprocs: 8
+  maxcore_mb: 2500
+  temperature_K: 298.15
+  optfreq_keywords: "PBE0 D4 ZORA ma-ZORA-def2-TZVP SARC/J TightSCF TightOpt Freq CPCM(Water)"
+  sp_keywords: "PBE0 D4 ZORA ma-ZORA-def2-TZVPP SARC/J TightSCF CPCM(Water)"
+  hg_basis_opt: "SARC-ZORA-TZVP"
+  hg_basis_sp: "SARC-ZORA-TZVPP"
+
+chemistry:
+  temperature_K: 298.15
+  standard_state_M: 1.0
+  # Screening grids; activity coefficients are assumed 1 in this first-pass model.
+  chloride_M_grid: [0.0001, 0.0003, 0.001, 0.003, 0.01, 0.03, 0.1, 0.3, 1.0]
+  pH_grid: [2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 7.4, 8.0]

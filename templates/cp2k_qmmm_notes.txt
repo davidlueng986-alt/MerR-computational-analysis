@@ -1,0 +1,16 @@
+CP2K QM/MM stage (construct-specific, generated only after a complete solvated protein topology exists):
+
+QM region should include:
+  Hg; 3 coordinating Cys side chains through at least Cbeta-Sgamma; any directly bound Cl-/OH-/H2O;
+  optionally first-shell H-bond residues/waters identified from classical equilibration.
+
+Recommended workflow:
+  1) Prepare full MerR dimer (prefer experimental 5CRL for Hg-bound validation; your exact construct for predictions).
+  2) Build protonation states at assay pH; retain Cys donor protonation hypotheses as separate models.
+  3) Solvate + ions; equilibrate with a classical model only for the outer environment.
+  4) Define QM/MM boundary at Cbeta-Calpha or Cbeta-Cbackbone depending on topology and link-atom stability.
+  5) Use DFT QM region with scalar-relativistic Hg treatment; validate against small-cluster ORCA energies/geometries.
+  6) Run restrained scans, then umbrella sampling or well-tempered metadynamics in CV=(CN_Hg-Cl,CN_Hg-S).
+  7) Require multiple forward/reverse crossings and block-convergence analysis before interpreting barriers.
+
+This stage cannot be topology-independent: atom numbers, MM force field, protonation and link atoms depend on the exact MerR construct and system preparation.
