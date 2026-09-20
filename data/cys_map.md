@@ -1,6 +1,6 @@
 # Cysteine map: UniProt P0A183 ↔ PDB 5CRL
 
-Canonical sequence: UniProtKB reviewed entry **P0A183** (`MERR_PSEAEI` / gene `merR`), mercuric resistance operon regulatory protein from *Pseudomonas aeruginosa* (plasmid pVS1 / Tn501). Length **144 aa**. FASTA: [`data/P0A183.fasta`](P0A183.fasta).
+Canonical sequence: UniProtKB reviewed entry **P0A183** (`MERR_PSEAI` / gene `merR`), mercuric resistance operon regulatory protein from *Pseudomonas aeruginosa* (plasmid pVS1 / Tn501). Length **144 aa**. FASTA: [`data/P0A183.fasta`](P0A183.fasta).
 
 Sources (re-fetched for this map):
 
