@@ -1,11 +1,19 @@
 project:
   name: MerR_Hg_ligand_exchange
+  uniprot_id: P0A183
   pdb_id: 5CRL
   pdb_url_template: "https://files.rcsb.org/download/{pdb_id}.pdb"
   hg_element: HG
   donor_resname: CYS
   donor_atom: SG
   donor_cutoff_A: 3.2
+  cysteine:
+    numbering: uniprot
+    uniprot_positions: [82, 115, 117, 126]
+    pdb_resseq: [82, 115, 117, 126]
+    numbering_offset: 0
+    hg_binding_sites: [82, 117, 126]
+    non_ligand: [115]
 
 orca:
   executable: orca

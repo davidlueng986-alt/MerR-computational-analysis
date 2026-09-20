@@ -115,6 +115,8 @@ The workflow therefore starts with **relativistic solvated DFT**, and only after
 
 The default reference is the experimentally determined Hg-bound **Tn501 MerR structure, PDB 5CRL**. The code can fetch the structure, identify Hg and nearby cysteine sulfur donors, measure Hg–S distances, and build a methylthiolate site mimic from the experimental geometry.
 
+The canonical sequence used here is UniProt **P0A183** (`data/P0A183.fasta`). PDB 5CRL residues 1–134 match UniProt numbering with no offset; coordinating cysteines C82/C117/C126 are documented in `data/cys_map.md`.
+
 For project-specific prediction, the team’s exact MerR amino-acid sequence/construct should be added and aligned against this reference. AlphaFold can be used as an auxiliary structural hypothesis tool, but it is not used here as a substitute for binding thermodynamics.
 
 ## Current screening model
@@ -190,9 +192,9 @@ Compare computational predictions with a whole-cell response matrix varying fina
 - [x] use Hg-bound MerR reference `5CRL`
 - [x] automate Hg/Cys donor inspection
 - [x] generate a protein-derived site mimic
-- [ ] add exact team MerR amino-acid sequence
-- [ ] align the exact construct against 5CRL
-- [ ] document exact coordinating cysteine numbering
+- [x] add exact team MerR amino-acid sequence
+- [x] align the exact construct against 5CRL
+- [x] document exact coordinating cysteine numbering
 
 ### Phase 1 — small-cluster Hg chemistry
 
@@ -252,6 +254,9 @@ Compare computational predictions with a whole-cell response matrix varying fina
 ├── config/
 │   ├── config.yaml
 │   └── reactions.yaml
+├── data/
+│   ├── P0A183.fasta
+│   └── cys_map.md
 ├── mercury_merr/
 │   ├── cli.py
 │   ├── fetch.py
