@@ -144,6 +144,21 @@ Screening cycles include:
 
 These are controlled thermodynamic comparison cycles, **not claims that the protein literally follows one-step reactions of this form**.
 
+## Published screening energies (`engine=pyscf`)
+
+ORCA is not required for this first screening set. Numbers in `results/energies.csv` and `results/thermo/` were obtained with **PySCF PBE0 DKH2 def2-TZVP** (`engine=pyscf`; Hg uses the def2 ECP bundled with def2-TZVP; scalar DKH2 1e Hamiltonian plus ECP). This is **not** ORCA `PBE0-D4` `ZORA`, and it is **not** a claim of an experimental MerR `Kd`, cellular uptake, or dTomato fluorescence.
+
+Standard-state cluster transfer free energies (298.15 K; 1 M ideal-solution reference; harmonic `G` corrections as documented in `g_source`):
+
+| Cycle | ΔG° (kcal/mol) |
+| --- | ---: |
+| `HgCl2 + 3 MeS- -> [Hg(SMe)3]- + 2 Cl-` | −61.32 |
+| `HgCl3- + 3 MeS- -> [Hg(SMe)3]- + 3 Cl-` | −20.40 |
+| `HgCl4^2- + 3 MeS- -> [Hg(SMe)3]- + 4 Cl-` | −68.64 |
+| `Hg(OH)2 + 3 MeS- -> [Hg(SMe)3]- + 2 OH-` | +15.80 |
+
+`hg_sme3`, `hgcl2`, `hgcl3`, and `hgoh2` report imaginary harmonic frequencies after the PBE0 Hessian step; treat those `G` values as screening estimates, not stationary-point thermochemistry. Conditional `[Cl-]` and pH curves are `ΔG = ΔG° + RT ln Q` with activity ≈ concentration.
+
 ## Computational architecture
 
 ### Level 0 — solution speciation
@@ -152,7 +167,11 @@ Target design space: approximately pH 2–8, chloride `1e-4`–`1 M`, and trace-
 
 ### Level 1 — relativistic DFT screening
 
-Default ORCA setup:
+Two engines are labelled separately and must not be mixed in one table:
+
+**Screening engine (published here):** PySCF `PBE0` + scalar `DKH2` + `def2-TZVP` (Hg `def2-ECP` with `def2-TZVP`). Vacuum DFT plus harmonic `G(298.15 K)`. Command: `python run.py run-species --name all --engine pyscf`.
+
+**ORCA production target (not the published CSV):**
 
 - `PBE0-D4`
 - scalar-relativistic `ZORA`
@@ -204,7 +223,8 @@ Compare computational predictions with a whole-cell response matrix varying fina
 - [x] parse electronic/thermal energies
 - [x] calculate standard transfer free energies
 - [x] calculate first-pass chloride/pH conditional corrections
-- [ ] run production calculations on suitable compute infrastructure
+- [x] run PySCF PBE0 DKH2 def2-TZVP screening (`engine=pyscf`; not ORCA; not experimental Kd)
+- [ ] run ORCA PBE0-D4 ZORA production calculations on suitable compute infrastructure
 - [ ] perform functional / basis / solvation sensitivity analysis
 
 ### Phase 2 — solution chemistry integration
@@ -264,25 +284,35 @@ Compare computational predictions with a whole-cell response matrix varying fina
 │   ├── orca.py
 │   ├── orca_parse.py
 │   ├── pdbtools.py
+│   ├── pyscf_engine.py
+│   ├── pyscf_run.py
+│   ├── run_species.py
 │   ├── species.py
 │   └── thermo.py
+├── results/
+│   ├── energies.csv
+│   ├── qm_engine.json
+│   └── thermo/
 ├── scripts/
-│   └── run_orca_all.sh
+│   ├── run_orca_all.sh
+│   └── run_pyscf_all.sh
 └── templates/
     ├── cp2k_qmmm_notes.txt
     └── plumed.dat
 ```
 
-Generated `structures/`, `jobs/` and `results/` directories are intentionally ignored by Git.
+Generated `structures/` and `jobs/` scratch (including `*.gbw` / `*.hess`) are ignored by Git. Published `results/*.csv`, `results/*.json`, and `results/thermo/*.{csv,png,svg}` are tracked.
 
 ## Installation
 
-Requirements: Python 3.10+, packages in `requirements.txt`, ORCA 6.x for the DFT stage, and later CP2K + PLUMED for QM/MM / enhanced sampling.
+Requirements: Python 3.10+, packages in `requirements.txt`. Screening DFT uses **PySCF in WSL** (`pip3 install --user pyscf geometric numpy`). ORCA 6.x is optional for a later ZORA production set. CP2K + PLUMED are for later QM/MM / enhanced sampling.
 
 ```bash
 python -m venv .venv
 source .venv/bin/activate  # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
+# WSL screening engine
+wsl -d Ubuntu-26.04 -- bash -lc 'pip3 install --user pyscf geometric numpy'
 ```
 
 ## Quick start
@@ -293,20 +323,21 @@ python run.py fetch
 python run.py inspect-site structures/5CRL.pdb --cutoff 3.2
 python run.py build-site-mimic structures/5CRL.pdb --out structures/5CRL_site_mimic.xyz
 
-# Build screening species and ORCA jobs
+# Build screening species and run PySCF (not ORCA)
 python run.py build-species --outdir structures/species
-python run.py gen-orca --structures structures/species --jobs jobs
+python run.py run-species --name all --engine pyscf --workdir .
 
-# Run ORCA after setting its executable
+# Optional ORCA production path (different method; do not mix tables)
+python run.py gen-orca --structures structures/species --jobs jobs
 export ORCA=/path/to/orca
 ./scripts/run_orca_all.sh
-
-# Parse and analyse
 python run.py parse-orca
+
+# Thermo from whatever engine wrote results/energies.csv
 python run.py thermo
 ```
 
-Expected analysis outputs include `results/energies.csv`, `reaction_dG0.csv`, chloride-dependent conditional free energies, pH-dependent conditional free energies and plots.
+Expected analysis outputs include `results/energies.csv` (`engine=pyscf`), `results/thermo/reaction_dG0.csv`, chloride-dependent conditional free energies, pH-dependent conditional free energies and plots. Those energies are screening DFT, not experimental `Kd`.
 
 ## How to interpret results
 
@@ -361,15 +392,15 @@ The model is explicitly intended to challenge the chloride-extraction + MerR des
 1. Add the exact MerR amino-acid sequence used by the team.
 2. Map its coordinating cysteines against Tn501/5CRL.
 3. Add the real final assay buffer, pH and chloride range after soil-extract conditioning.
-4. Run the first ORCA production set plus sensitivity analysis.
+4. Compare the published PySCF screening set with an ORCA PBE0-D4 ZORA production set plus sensitivity analysis.
 5. Integrate verified Hg–Cl / Hg–OH equilibrium constants.
 6. Select the top chemically relevant species for full-protein QM/MM.
 7. Compare the predicted ordering with a controlled whole-cell `[Cl-] × pH` response matrix.
 
 ## Current status
 
-**Code:** first-stage workflow implemented; production quantum-chemistry calculations require an ORCA-capable compute environment.
+**Code:** first-stage workflow implemented. Screening DFT used **PySCF PBE0 DKH2 def2-TZVP** (`engine=pyscf`) because ORCA was not available. That method is not ORCA PBE0-D4 ZORA.
 
-**Science:** hypothesis-generating / mechanism-screening. No claim is yet made that the code predicts an absolute MerR binding constant or whole-cell response.
+**Science:** hypothesis-generating / mechanism-screening. Published ΔG° values are cluster DFT transfer energies. They are **not** experimental MerR `Kd` values and do not by themselves predict whole-cell response.
 
 **Project-specific data still needed:** exact MerR sequence, E. coli strain, `Pmer` operator/promoter sequence, assay composition and the final conditioned soil matrix.
