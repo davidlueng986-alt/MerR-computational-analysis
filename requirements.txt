@@ -4,3 +4,5 @@ matplotlib>=3.8
 PyYAML>=6.0
 requests>=2.31
 scipy>=1.11
+# Screening DFT in WSL (not ORCA): pip3 install --user pyscf geometric numpy
+# Engine: PySCF PBE0 DKH2 def2-TZVP. Do not treat screening energies as experimental Kd.

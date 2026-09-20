@@ -1,0 +1,8 @@
+{
+  "engine": "pyscf",
+  "method": "PySCF PBE0 DKH2 def2-TZVP (Hg def2-ECP with def2-TZVP; scalar DKH2 1e + ECP; not ORCA PBE0-D4 ZORA)",
+  "n_converged": 8,
+  "n_species": 8,
+  "energies": "results/energies.csv",
+  "note": "Screening energies are engine=pyscf DFT numbers, not experimental Kd"
+}

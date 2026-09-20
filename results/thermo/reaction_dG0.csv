@@ -1,0 +1,5 @@
+reaction,description,dG0_kcal_mol,missing
+hgcl2_to_sme3,HgCl2 + 3 MeS- -> [Hg(SMe)3]- + 2 Cl-,-61.31749413139187,
+hgcl3_to_sme3,HgCl3- + 3 MeS- -> [Hg(SMe)3]- + 3 Cl-,-20.40234759473242,
+hgcl4_to_sme3,HgCl4^2- + 3 MeS- -> [Hg(SMe)3]- + 4 Cl-,-68.63584808795713,
+hgoh2_to_sme3,Hg(OH)2 + 3 MeS- -> [Hg(SMe)3]- + 2 OH-,15.804182446372579,

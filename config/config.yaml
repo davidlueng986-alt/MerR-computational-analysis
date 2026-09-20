@@ -25,6 +25,20 @@ orca:
   hg_basis_opt: "SARC-ZORA-TZVP"
   hg_basis_sp: "SARC-ZORA-TZVPP"
 
+pyscf:
+  python: python3
+  xc: PBE0
+  basis: def2-TZVP
+  ecp: def2-TZVP
+  solvent: none
+  density_fit: true
+  max_memory_mb: 6000
+  optimize: true
+  relativistic: DKH2
+  # Screening engine (mercury_merr.pyscf_engine): PySCF PBE0 DKH2 def2-TZVP.
+  # Hg uses the def2 ECP bundled with def2-TZVP. This is not ORCA PBE0-D4 ZORA.
+  # def2-SVP is used only if TZVP runs out of memory.
+
 chemistry:
   temperature_K: 298.15
   standard_state_M: 1.0

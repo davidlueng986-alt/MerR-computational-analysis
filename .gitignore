@@ -3,12 +3,11 @@ __pycache__/
 *.py[cod]
 .DS_Store
 
-# Generated calculation inputs/outputs
+# Generated geometries and job scratch (ORCA/PySCF)
 structures/
 jobs/
-results/
 
-# Large chemistry output files
+# Raw ORCA binaries and scratch
 *.gbw
 *.hess
 *.densities
@@ -16,3 +15,16 @@ results/
 *.engrad
 *.opt
 *.trj
+*.hostfile
+*.tmp
+*.exe
+
+# Keep published tables and thermo plots (do not ignore results/*.csv or results/thermo plots)
+results/*
+!results/*.csv
+!results/*.json
+!results/thermo/
+results/thermo/*
+!results/thermo/*.csv
+!results/thermo/*.png
+!results/thermo/*.svg
