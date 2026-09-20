@@ -22,7 +22,12 @@ def build_species(name):
             r=d*v; atoms.append(("Cl",*r))
         return atoms
     if name=="hgoh2":
-        d_hgo=2.10; d_oh=0.97; return [("Hg",0,0,0),("O",0,0,d_hgo),("H",0,0,d_hgo+d_oh),("O",0,0,-d_hgo),("H",0,0,-d_hgo-d_oh)]
+        # Linear O-Hg-O, H-O-Hg ~105 deg (C2v). Not collinear H-O-Hg-O-H.
+        d_hgo=2.10; d_oh=0.97; ang=math.radians(105.0)
+        s,c=math.sin(ang),math.cos(ang)
+        h1=(d_oh*s, 0.0, d_hgo-d_oh*c)
+        h2=(d_oh*s, 0.0, -d_hgo+d_oh*c)
+        return [("Hg",0,0,0),("O",0,0,d_hgo),("H",*h1),("O",0,0,-d_hgo),("H",*h2)]
     if name=="chloride": return [("Cl",0,0,0)]
     if name=="hydroxide": return [("O",0,0,0),("H",0,0,0.97)]
     if name=="methanethiolate":

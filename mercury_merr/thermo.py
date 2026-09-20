@@ -36,7 +36,9 @@ def analyze(energies_csv,reactions_yaml,config_yaml,outdir):
     if not cdf.empty:
         fig,ax=plt.subplots(figsize=(7,5))
         for name,g in cdf.groupby("reaction"): ax.plot(g["chloride_M"],g["dG_cond_kcal_mol"],marker="o",label=name)
-        ax.set_xscale("log"); ax.set_xlabel("[Cl-] (M; activity≈concentration screening assumption)"); ax.set_ylabel("Conditional ΔG (kcal/mol)"); ax.legend(fontsize=8); fig.tight_layout(); fig.savefig(outdir/"chloride_conditional_dG.png",dpi=200); plt.close(fig)
+        ax.set_xscale("log"); ax.set_xlabel("[Cl-] (M; activity≈concentration screening assumption)"); ax.set_ylabel("Conditional ΔG (kcal/mol)")
+        ax.set_title("engine=pyscf screening (not experimental Kd)")
+        ax.legend(fontsize=8); fig.tight_layout(); fig.savefig(outdir/"chloride_conditional_dG.png",dpi=200); fig.savefig(outdir/"chloride_conditional_dG.svg"); plt.close(fig)
     phrows=[]
     for name,r in rx.items():
         if r.get("hydroxide_products",0)<=0: continue
@@ -47,4 +49,6 @@ def analyze(energies_csv,reactions_yaml,config_yaml,outdir):
     if not pdf.empty:
         fig,ax=plt.subplots(figsize=(7,5))
         for name,g in pdf.groupby("reaction"): ax.plot(g["pH"],g["dG_cond_kcal_mol"],marker="o",label=name)
-        ax.set_xlabel("pH (ideal Kw screening approximation)"); ax.set_ylabel("Conditional ΔG (kcal/mol)"); ax.legend(); fig.tight_layout(); fig.savefig(outdir/"pH_conditional_dG.png",dpi=200); plt.close(fig)
+        ax.set_xlabel("pH (ideal Kw screening approximation)"); ax.set_ylabel("Conditional ΔG (kcal/mol)")
+        ax.set_title("engine=pyscf screening (not experimental Kd)")
+        ax.legend(); fig.tight_layout(); fig.savefig(outdir/"pH_conditional_dG.png",dpi=200); fig.savefig(outdir/"pH_conditional_dG.svg"); plt.close(fig)
